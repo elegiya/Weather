@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 using XyWeather.Services.Weather;
+using XyWeather.ViewModels;
 
 namespace XyWeather.Views
 {
@@ -18,8 +19,10 @@ namespace XyWeather.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            var temperature = await _weatherService.GetTemperatureAsync(string.Empty);
-            temperatureLabel.Text = temperature.ToString();
+            BindingContext = new WeatherViewModel();//this.Navigation);
+
+            //var temperature = await _weatherService.GetTemperatureAsync("oslo");
+            //temperatureLabel.Text = temperature.ToString();
         }
     }
 }

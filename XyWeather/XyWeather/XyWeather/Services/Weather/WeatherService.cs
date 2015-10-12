@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using XyWeather.Services.Networking;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -8,14 +9,23 @@ namespace XyWeather.Services.Weather
 {
     public class WeatherService : IWeatherService
     {
-        const string GetTemperatureUri = "http://api.openweathermap.org/data/2.5/forecast?q=Oslo";
-        readonly IRestClient _restClient = new RestClient();
+        private const string GetTemperatureUri =
+            "http://api.openweathermap.org/data/2.5/forecast?q=";
+
+        private const string key = "";
+
+        private readonly IRestClient _restClient = new RestClient();
 
         public async Task<double> GetTemperatureAsync(string city)
         {
-            var response = await _restClient.GetAsync(GetTemperatureUri);
-            var weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(response);
-            return weatherResponse.main.temp - 273;
+            var response = await _restClient.GetAsync(GetFullUrlForCity(city));
+            var weatherResponse = JsonConvert.DeserializeObject<Main>(response);
+            return weatherResponse.temp - 273;
+        }
+
+        public string GetFullUrlForCity(string cityName)
+        {
+            return $"{GetTemperatureUri}{cityName}{key}";
         }
     }
 }
