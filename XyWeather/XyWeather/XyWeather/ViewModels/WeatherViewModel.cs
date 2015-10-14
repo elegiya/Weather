@@ -13,6 +13,7 @@ namespace XyWeather.ViewModels
     {
         private readonly WeatherService _weatherService;
         private string _city;
+        private string _temperature;
 
         public WeatherViewModel()
         {
@@ -28,7 +29,20 @@ namespace XyWeather.ViewModels
                 if (_city != value)
                 {
                     _city = value;
-                    OnPropertyChanged("City");
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Temperature
+        {
+            get { return _temperature; }
+            set
+            {
+                if (_temperature != value)
+                {
+                    _temperature = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -38,7 +52,7 @@ namespace XyWeather.ViewModels
         private async void MakeSearchByName()
         {
             var temperature = await _weatherService.GetTemperatureAsync(City);
-            City = temperature.ToString();
+            Temperature = temperature.ToString();
         }
     }
 }

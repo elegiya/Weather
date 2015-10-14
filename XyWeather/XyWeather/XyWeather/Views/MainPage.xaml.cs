@@ -9,8 +9,6 @@ namespace XyWeather.Views
 {
     public partial class MainPage : ContentPage
     {
-        readonly IWeatherService _weatherService = new WeatherService();
-
         public MainPage()
         {
             InitializeComponent();
@@ -19,10 +17,7 @@ namespace XyWeather.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            BindingContext = new WeatherViewModel();//this.Navigation);
-
-            //var temperature = await _weatherService.GetTemperatureAsync("oslo");
-            //temperatureLabel.Text = temperature.ToString();
+            BindingContext = new WeatherViewModel();
         }
     }
 }

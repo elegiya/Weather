@@ -12,7 +12,7 @@ namespace XyWeather.Services.Weather
         private const string GetTemperatureUri =
             "http://api.openweathermap.org/data/2.5/forecast?q=";
 
-        private const string key = "";
+        private const string key = "&appid=2eef7c2b42a4f388bbf8b28be5fe4dd2";
 
         private readonly IRestClient _restClient = new RestClient();
 

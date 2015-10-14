@@ -24,7 +24,7 @@
      
      <Label x:Name="dayLabel" Text="DAY" Grid.Row="1" Grid.Column="0"  />
      <Label x:Name="condLabel" Text="COND" Grid.Row="1" Grid.Column="1"  />
-     <Label x:Name="temperatureLabel" Text="{Binding City}" Grid.Row="1" Grid.Column="2"  />
+     <Label x:Name="temperatureLabel" Text="{Binding Temperature}" Grid.Row="1" Grid.Column="2"  />
      <Label x:Name="descriptionLabel" Text="DESCRIPTION" Grid.Row="1" Grid.Column="3"  />
      <Label x:Name="precipLabel" Text="PRECIP" Grid.Row="1" Grid.Column="4"  />
      <Label x:Name="windLabel" Text="WIND" Grid.Row="1" Grid.Column="5"  />
