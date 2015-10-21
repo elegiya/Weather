@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="XyWeather.Views.MainPage">
-   <Grid>
+
+    <ContentPage.Resources>
+          <ResourceDictionary>
+              <Style TargetType="Grid">
+                  <Setter Property="BackgroundColor" Value="#ff0056"/>
+                  <Setter Property="Padding" Value="10, 80, 10, 80"/>
+              </Style>
+          </ResourceDictionary>
+      </ContentPage.Resources>
+  
+   <Grid x:Name="weatherGrid">
+     
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
@@ -17,25 +28,26 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-     
+
+  <!--TODO: Make Binding for ListView instead of duplicated Grid rows-->    
      <Label x:Name="cityLabel" Text="Enter your city: " Grid.Row="0" Grid.Column="0" />
-     <Entry x:Name="cityEntry" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" />
-     <Button x:Name="cityEnterButton" Grid.Row="0" Grid.Column="5" Command="{Binding ChooseCityCommand}" />
+     <Entry x:Name="cityEntry" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding City}" />
+     <Button x:Name="cityEnterButton" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" Command="{Binding ChooseCityCommand}" />
      
-     <Label x:Name="dayLabel" Text="DAY" Grid.Row="1" Grid.Column="0"  />
-     <Label x:Name="condLabel" Text="COND" Grid.Row="1" Grid.Column="1"  />
-     <Label x:Name="temperatureLabel" Text="{Binding Temperature}" Grid.Row="1" Grid.Column="2"  />
-     <Label x:Name="descriptionLabel" Text="DESCRIPTION" Grid.Row="1" Grid.Column="3"  />
-     <Label x:Name="precipLabel" Text="PRECIP" Grid.Row="1" Grid.Column="4"  />
-     <Label x:Name="windLabel" Text="WIND" Grid.Row="1" Grid.Column="5"  />
+     <Label x:Name="dayTodayLabel" Text="DAY" Grid.Row="1" Grid.Column="0"  />
+     <Label x:Name="condTodayLabel" Text="COND" Grid.Row="1" Grid.Column="1"  />
+     <Label x:Name="temperatureTodayLabel" Text="TEMP" Grid.Row="1" Grid.Column="2"  />
+     <Label x:Name="descriptionTodayLabel" Text="DESCRIPTION" Grid.Row="1" Grid.Column="3"  />
+     <Label x:Name="precipTodayLabel" Text="PRECIP" Grid.Row="1" Grid.Column="4"  />
+     <Label x:Name="windTodayLabel" Text="WIND" Grid.Row="1" Grid.Column="5"  />
+              
+     <Label x:Name="dayLabel" Text="{Binding Date, Mode=TwoWay}" Grid.Row="2" Grid.Column="0"  />
+     <Label x:Name="condLabel" Text="{Binding Clouds, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"  />
+     <Label x:Name="temperatureLabel" Text="{Binding Temperature, Mode=TwoWay}" Grid.Row="2" Grid.Column="2"  />
+     <Label x:Name="descriptionLabel" Text="{Binding Description, Mode=TwoWay}" Grid.Row="2" Grid.Column="3"  />
+     <Label x:Name="precipLabel" Text="{Binding Humidity, Mode=TwoWay}" Grid.Row="2" Grid.Column="4"  />
+     <Label x:Name="windLabel" Text="{Binding Wind, Mode=TwoWay}" Grid.Row="2" Grid.Column="5"  />
    
-     <Label x:Name="dayTodayLabel" Text="DAY" Grid.Row="2" Grid.Column="0"  />
-     <Label x:Name="condTodayLabel" Text="COND" Grid.Row="2" Grid.Column="1"  />
-     <Label x:Name="temperatureTodayLabel" Text="TEMP" Grid.Row="2" Grid.Column="2"  />
-     <Label x:Name="descriptionTodayLabel" Text="DESCRIPTION" Grid.Row="2" Grid.Column="3"  />
-     <Label x:Name="precipTodayLabel" Text="PRECIP" Grid.Row="2" Grid.Column="4"  />
-     <Label x:Name="windTodayLabel" Text="WIND" Grid.Row="2" Grid.Column="5"  />
-     
      <Label x:Name="dayTomorrowLabel" Text="DAY" Grid.Row="3" Grid.Column="0"  />
      <Label x:Name="condTomorrowLabel" Text="COND" Grid.Row="3" Grid.Column="1"  />
      <Label x:Name="temperatureTomorrowLabel" Text="TEMP" Grid.Row="3" Grid.Column="2"  />
@@ -49,7 +61,5 @@
      <Label x:Name="descriptionDayAfterTomorrowLabel" Text="DESCRIPTION" Grid.Row="4" Grid.Column="3"  />
      <Label x:Name="precipDayAfterTomorrowLabel" Text="PRECIP" Grid.Row="4" Grid.Column="4"  />
      <Label x:Name="windDayAfterTomorrowLabel" Text="WIND" Grid.Row="4" Grid.Column="5"  />
-     
-   
   </Grid>
 </ContentPage>

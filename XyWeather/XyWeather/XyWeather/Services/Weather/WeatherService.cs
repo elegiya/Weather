@@ -9,23 +9,26 @@ namespace XyWeather.Services.Weather
 {
     public class WeatherService : IWeatherService
     {
-        private const string GetTemperatureUri =
-            "http://api.openweathermap.org/data/2.5/forecast?q=";
+        private readonly IRestClient _restClient;
 
-        private const string key = "&appid=2eef7c2b42a4f388bbf8b28be5fe4dd2";
+        //private const string TEMPERATURE_URI = "http://api.openweathermap.org/data/2.5/forecast?q=";
 
-        private readonly IRestClient _restClient = new RestClient();
+        private const string KEY = "2eef7c2b42a4f388bbf8b28be5fe4dd2";
 
-        public async Task<double> GetTemperatureAsync(string city)
+        public WeatherService()
         {
-            var response = await _restClient.GetAsync(GetFullUrlForCity(city));
-            var weatherResponse = JsonConvert.DeserializeObject<Main>(response);
-            return weatherResponse.temp - 273;
+            _restClient = new RestClient();
         }
 
-        public string GetFullUrlForCity(string cityName)
+        public async Task<WeatherToday> GetTemperatureAsync(string city)
         {
-            return $"{GetTemperatureUri}{cityName}{key}";
+            var response = await _restClient.GetAsync(GetFullUrlForCity(city));
+            return JsonConvert.DeserializeObject<WeatherToday>(response);
+        }
+
+        private string GetFullUrlForCity(string cityName)
+        {
+            return $"http://api.openweathermap.org/data/2.5/weather?q={cityName}&APPID={KEY}&units=metric&cnt=1";
         }
     }
 }

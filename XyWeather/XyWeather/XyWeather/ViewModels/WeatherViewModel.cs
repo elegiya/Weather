@@ -13,12 +13,20 @@ namespace XyWeather.ViewModels
     {
         private readonly WeatherService _weatherService;
         private string _city;
+
+        private readonly string _date;
+        private string _clouds;
         private string _temperature;
+        private string _description;
+        private string _humidity;
+        private string _wind;
 
         public WeatherViewModel()
         {
-            _weatherService=new WeatherService();
-            this.ChooseCityCommand=new Command(MakeSearchByName);
+            _weatherService = new WeatherService();
+            _date = DateTime.Today.ToString();
+
+            this.ChooseCityCommand = new Command(MakeSearchByName);
         }
 
         public string City
@@ -29,6 +37,24 @@ namespace XyWeather.ViewModels
                 if (_city != value)
                 {
                     _city = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Date
+        {
+            get { return _date; }
+        }
+
+        public string Clouds
+        {
+            get { return _clouds; }
+            set
+            {
+                if (_clouds != value)
+                {
+                    _clouds = value;
                     OnPropertyChanged();
                 }
             }
@@ -47,12 +73,56 @@ namespace XyWeather.ViewModels
             }
         }
 
-        public ICommand ChooseCityCommand { get; private set; }
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Humidity
+        {
+            get { return _humidity; }
+            set
+            {
+                if (_humidity != value)
+                {
+                    _humidity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Wind
+        {
+            get { return _wind; }
+            set
+            {
+                if (_wind != value)
+                {
+                    _wind = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         
+        public ICommand ChooseCityCommand { get; private set; }
+
         private async void MakeSearchByName()
         {
-            var temperature = await _weatherService.GetTemperatureAsync(City);
-            Temperature = temperature.ToString();
+            var weatherResult = await _weatherService.GetTemperatureAsync(City);
+
+            Clouds = weatherResult.clouds.all.ToString();
+            Temperature = weatherResult.main.temp.ToString();
+            Description = weatherResult?.weather[0].description;
+            Humidity = weatherResult.main.humidity.ToString();
+            Wind = weatherResult.wind.speed.ToString();
         }
     }
 }

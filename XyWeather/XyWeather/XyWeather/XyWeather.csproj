@@ -36,6 +36,7 @@
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Clouds.cs" />
     <Compile Include="Models\Coord.cs" />
+    <Compile Include="Models\WeatherToday.cs" />
     <Compile Include="Models\List.cs" />
     <Compile Include="Models\Rain.cs" />
     <Compile Include="Models\RootObject.cs" />
