@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XyWeather.Services.Weather;
 
 namespace XyWeather.ViewModels
 {
+    /// <summary>
+    /// ViewModel to get a weather today.
+    /// </summary>
     public class WeatherViewModel : BaseViewModel
     {
         private readonly WeatherService _weatherService;
@@ -29,6 +28,9 @@ namespace XyWeather.ViewModels
             this.ChooseCityCommand = new Command(MakeSearchByName);
         }
 
+        /// <summary>
+        /// Gets or sets the city for search.
+        /// </summary>
         public string City
         {
             get { return _city; }
@@ -42,11 +44,17 @@ namespace XyWeather.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the date for search.
+        /// </summary>
         public string Date
         {
             get { return _date; }
         }
 
+        /// <summary>
+        /// Gets or sets clouds in City for Date.
+        /// </summary>
         public string Clouds
         {
             get { return _clouds; }
@@ -60,6 +68,9 @@ namespace XyWeather.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets temperature in City for Date.
+        /// </summary>
         public string Temperature
         {
             get { return _temperature; }
@@ -73,6 +84,9 @@ namespace XyWeather.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets additional information about weather in City for Date.
+        /// </summary>
         public string Description
         {
             get { return _description; }
@@ -86,6 +100,9 @@ namespace XyWeather.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets humidity in City for Date.
+        /// </summary>
         public string Humidity
         {
             get { return _humidity; }
@@ -99,6 +116,9 @@ namespace XyWeather.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets wind in City for Date.
+        /// </summary>
         public string Wind
         {
             get { return _wind; }
@@ -112,11 +132,14 @@ namespace XyWeather.ViewModels
             }
         }
         
+        /// <summary>
+        /// Raised when city is chosen.
+        /// </summary>
         public ICommand ChooseCityCommand { get; private set; }
 
         private async void MakeSearchByName()
         {
-            var weatherResult = await _weatherService.GetTemperatureAsync(City);
+            var weatherResult = await _weatherService.GetWeatherAsync(City);
 
             Clouds = weatherResult.clouds.all.ToString();
             Temperature = weatherResult.main.temp.ToString();
